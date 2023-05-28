@@ -182,7 +182,7 @@ module Haml
 
       tabs = line.whitespace.length / @indentation.length
       return tabs if line.whitespace == @indentation * tabs
-      return @template_tabs + 1 if flat? && line.whitespace =~ /^#{@flat_spaces}/
+      return @template_tabs + 1 if flat? && /^#{@flat_spaces}/.match?(line.whitespace)
 
       message = Error.message(:inconsistent_indentation,
         human_indentation(line.whitespace),
@@ -236,7 +236,7 @@ module Haml
     DynamicAttributes = Struct.new(:new, :old) do
       undef :old=
       def old=(value)
-        unless value =~ /\A{.*}\z/m
+        unless /\A{.*}\z/m.match?(value)
           raise ArgumentError.new('Old attributes must start with "{" and end with "}"')
         end
         self[:old] = value
@@ -528,7 +528,7 @@ module Haml
     end
 
     def filter(name)
-      raise Error.new(Error.message(:invalid_filter_name, name)) unless name =~ /^\w+$/
+      raise Error.new(Error.message(:invalid_filter_name, name)) unless /^\w+$/.match?(name)
 
       if filter_opened?
         @flat = true
@@ -630,7 +630,7 @@ module Haml
 
       tag_name, attributes, rest = match
 
-      if !attributes.empty? && (attributes =~ /[.#](\.|#|\z)/)
+      if !attributes.empty? && /[.#](\.|#|\z)/.match?(attributes)
         raise SyntaxError.new(Error.message(:illegal_element))
       end
 
@@ -786,7 +786,7 @@ module Haml
       line_defined = instance_variable_defined?(:@line)
       @line.tabs if line_defined
       unless (flat? && !closes_flat?(line) && !closes_flat?(@line)) ||
-          (line_defined && @line.text[0] == ?: && line.full =~ %r[^#{@line.full[/^\s+/]}\s])
+          (line_defined && @line.text[0] == ?: && %r[^#{@line.full[/^\s+/]}\s].match?(line.full))
         return next_line if line.text.empty?
 
         handle_multiline(line)
@@ -838,7 +838,7 @@ module Haml
     # - and not "?\," which is a character literal
     def is_ruby_multiline?(text)
       text && text.length > 1 && text[-1] == ?, &&
-        !((text[-3, 2] =~ /\W\?/) || text[-3, 2] == "?\\")
+        !((/\W\?/.match?(text[-3, 2])) || text[-3, 2] == "?\\")
     end
 
     def balance(*args)
@@ -871,7 +871,7 @@ module Haml
     # Same semantics as block_opened?, except that block_opened? uses Line#tabs,
     # which doesn't interact well with filter lines
     def filter_opened?
-      @next_line.full =~ (@indentation ? /^#{@indentation * (@template_tabs + 1)}/ : /^\s/)
+      (@indentation ? /^#{@indentation * (@template_tabs + 1)}/ : /^\s/).match?(@next_line.full)
     end
 
     def flat?

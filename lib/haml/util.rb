@@ -69,7 +69,7 @@ module Haml
         # Shortcut for UTF-8 which might be the majority case
         if str.encoding == Encoding::UTF_8
           return str.gsub(/\A\uFEFF/, '')
-        elsif str.encoding.name =~ /^UTF-(16|32)(BE|LE)?$/
+        elsif /^UTF-(16|32)(BE|LE)?$/.match?(str.encoding.name)
           return str.gsub(Regexp.new("\\A\uFEFF".encode(str.encoding)), '')
         else
           return str
@@ -253,7 +253,7 @@ MSG
       return unless scanner.scan(/([^\s'":;]+)\s*:\s*("(?:\\.|[^"])*"|[^"\s;]+?)[\s;]*-\*-/n)
       name, val = scanner[1], scanner[2]
       return unless name =~ /(en)?coding/in
-      val = $1 if val =~ /^"(.*)"$/n
+      val = $1 if /^"(.*)"$/n.match?(val)
       return val
     ensure
       scanner.pos = pos
