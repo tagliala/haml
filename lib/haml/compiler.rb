@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-require 'haml/compiler/children_compiler'
-require 'haml/compiler/comment_compiler'
-require 'haml/compiler/doctype_compiler'
-require 'haml/compiler/script_compiler'
-require 'haml/compiler/silent_script_compiler'
-require 'haml/compiler/tag_compiler'
-require 'haml/filters'
-require 'haml/identity'
+require_relative 'compiler/children_compiler'
+require_relative 'compiler/comment_compiler'
+require_relative 'compiler/doctype_compiler'
+require_relative 'compiler/script_compiler'
+require_relative 'compiler/silent_script_compiler'
+require_relative 'compiler/tag_compiler'
+require_relative 'filters'
+require_relative 'identity'
 
 module Haml
   class Compiler

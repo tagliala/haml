@@ -1,7 +1,8 @@
 # frozen_string_literal: false
 require 'temple'
-require 'haml/engine'
-require 'haml/helpers'
+
+require_relative 'engine'
+require_relative 'helpers'
 
 module Haml
   Template = Temple::Templates::Tilt.create(

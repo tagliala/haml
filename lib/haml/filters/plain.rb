@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'haml/string_splitter'
+require_relative '../string_splitter'
 
 module Haml
   class Filters

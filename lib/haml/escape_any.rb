@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'haml/escape'
+require_relative 'escape'
 
 module Haml
   # This module allows Temple::Filter to dispatch :fescape on `#compile`.

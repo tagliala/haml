@@ -1,5 +1,5 @@
 # frozen_string_literal: false
-require 'haml/helpers'
+require_relative 'helpers'
 
 # There are only helpers that depend on ActionView internals.
 module Haml

@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 require 'temple'
-require 'haml/parser'
-require 'haml/compiler'
-require 'haml/html'
-require 'haml/string_splitter'
-require 'haml/escape'
-require 'haml/escape_any'
-require 'haml/force_escape'
-require 'haml/dynamic_merger'
-require 'haml/ambles'
-require 'haml/whitespace'
+
+require_relative 'parser'
+require_relative 'compiler'
+require_relative 'html'
+require_relative 'string_splitter'
+require_relative 'escape'
+require_relative 'escape_any'
+require_relative 'force_escape'
+require_relative 'dynamic_merger'
+require_relative 'ambles'
+require_relative 'whitespace'
 
 module Haml
   class Engine < Temple::Engine

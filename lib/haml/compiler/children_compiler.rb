@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'haml/temple_line_counter'
+require_relative '../temple_line_counter'
 
 module Haml
   class Compiler

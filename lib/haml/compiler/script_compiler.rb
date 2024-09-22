@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 require 'temple/static_analyzer'
-require 'haml/ruby_expression'
-require 'haml/string_splitter'
+
+require_relative '../ruby_expression'
+require_relative '../string_splitter'
 
 module Haml
   class Compiler

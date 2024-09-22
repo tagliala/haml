@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'haml'
+require_relative '../haml'
+
 require 'thor'
 
 module Haml
@@ -76,7 +77,9 @@ module Haml
       if options[:actionview]
         require 'action_view'
         require 'action_view/base'
-        require 'haml/rails_template'
+
+        require_relative 'rails_template'
+
         handler = Haml::RailsTemplate.new
         template = ActionView::Template.new(template, 'inline template', handler, { locals: [] })
         code = handler.call(template)

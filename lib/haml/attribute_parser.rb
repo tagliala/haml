@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'haml/ruby_expression'
+require_relative 'ruby_expression'
 
 module Haml
   class AttributeParser

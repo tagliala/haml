@@ -2,8 +2,9 @@
 
 require 'ripper'
 require 'strscan'
-require 'haml/error'
-require 'haml/util'
+
+require_relative 'error'
+require_relative 'util'
 
 module Haml
   class Parser

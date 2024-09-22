@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'haml/attribute_builder'
-require 'haml/attribute_parser'
-require 'haml/ruby_expression'
+require_relative 'attribute_builder'
+require_relative 'attribute_parser'
+require_relative 'ruby_expression'
 
 module Haml
   # The list of boolean attributes. You may add custom attributes to this constant.

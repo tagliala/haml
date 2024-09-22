@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'haml/util'
+require_relative 'util'
 
 module Haml
   class Escape < Temple::Filters::Escapable

@@ -1,13 +1,14 @@
 # frozen_string_literal: true
-require 'haml/engine'
-require 'haml/error'
-require 'haml/version'
-require 'haml/template'
+require_relative 'haml/engine'
+require_relative 'haml/error'
+require_relative 'haml/version'
+require_relative 'haml/template'
 
 if File.basename($0) != 'haml'
   begin
     require 'rails'
-    require 'haml/railtie'
+
+    require_relative 'haml/railtie'
   rescue LoadError
   end
 end

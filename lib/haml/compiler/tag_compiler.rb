@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'haml/util'
-require 'haml/attribute_compiler'
-require 'haml/string_splitter'
+require_relative '../util'
+require_relative '../attribute_compiler'
+require_relative '../string_splitter'
 
 module Haml
   class Compiler

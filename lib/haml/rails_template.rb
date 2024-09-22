@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 require 'temple'
-require 'haml/engine'
-require 'haml/rails_helpers'
-require 'haml/util'
+
+require_relative 'engine'
+require_relative 'rails_helpers'
+require_relative 'util'
 
 module Haml
   class RailsTemplate

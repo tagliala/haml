@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'haml/object_ref'
+require_relative 'object_ref'
 
 module Haml::AttributeBuilder
   class << self
