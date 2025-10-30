@@ -5,7 +5,7 @@ describe Tilt::HamlTemplate do
     def suppress_warning(&block)
       begin
         $VERBOSE, verbose = nil, $VERBOSE
-        block.call
+        yield
       ensure
         $VERBOSE = verbose
       end

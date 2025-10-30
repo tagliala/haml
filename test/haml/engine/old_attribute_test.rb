@@ -196,7 +196,7 @@ describe Haml::Engine do
         begin
           old_attributes = Haml::BOOLEAN_ATTRIBUTES.dup
           Haml::BOOLEAN_ATTRIBUTES.push(*attributes)
-          block.call
+          yield
         ensure
           Haml::BOOLEAN_ATTRIBUTES.replace(old_attributes)
         end

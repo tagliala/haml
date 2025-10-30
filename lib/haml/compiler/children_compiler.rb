@@ -17,7 +17,7 @@ module Haml
         node.children.each do |n|
           rstrip_whitespace!(temple) if nuke_prev_whitespace?(n)
           insert_newlines!(temple, n)
-          temple << moving_lineno(n) { block.call(n) }
+          temple << moving_lineno(n) { yield(n) }
           temple << [:whitespace] if insert_whitespace?(n)
         end
         rstrip_whitespace!(temple) if nuke_inner_whitespace?(node)
@@ -46,7 +46,7 @@ module Haml
           @lineno += 1 if node.children.empty? && node.value[:parse]
         end
 
-        temple = block.call # compile
+        temple = yield # compile
 
         # after: filter may not have children, and for some dynamic filters we can't predict the number of lines.
         case node.type
