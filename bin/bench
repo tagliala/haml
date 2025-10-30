@@ -1,9 +1,14 @@
 #!/usr/bin/env ruby
 
+lib = File.expand_path('../../haml-copy', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 require 'bundler/setup'
 require 'haml'
+require 'haml_main'
 require 'thor'
 require 'benchmark/ips'
+require 'benchmark/memory'
 require_relative '../benchmark/utils/benchmark_ips_extension'
 
 class Bench < Thor
@@ -24,7 +29,15 @@ class Bench < Thor
     haml = File.read(file)
 
     Benchmark.ips do |x|
+      x.config(warmup: 10, time: 7)
       x.report("haml v#{Haml::VERSION}") { Haml::Engine.new.call(haml) }
+      x.report("haml v#{HamlMain::VERSION}") { HamlMain::Engine.new.call(haml) }
+      x.compare!
+    end
+
+    Benchmark.memory do |x|
+      x.report("haml v#{Haml::VERSION}") { Haml::Engine.new.call(haml) }
+      x.report("haml v#{HamlMain::VERSION}") { HamlMain::Engine.new.call(haml) }
       x.compare!
     end
   end
@@ -43,7 +56,15 @@ class Bench < Thor
     object.instance_eval "def haml; #{Haml::Engine.new.call(haml)}; end"
 
     Benchmark.ips do |x|
+      x.config(warmup: 10, time: 7)
       x.report("haml v#{Haml::VERSION}") { object.haml }
+      x.report("haml v#{HamlMain::VERSION}") { object.haml }
+      x.compare!
+    end
+
+    Benchmark.memory do |x|
+      x.report("haml v#{Haml::VERSION}") { object.haml }
+      x.report("haml v#{HamlMain::VERSION}") { object.haml }
       x.compare!
     end
   end

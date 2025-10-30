@@ -8,12 +8,14 @@ module Haml
   # Compile [:dynamic, "foo#{bar}"] to [:multi, [:static, 'foo'], [:dynamic, 'bar']]
   class StringSplitter < Temple::Filter
     if defined?(Ripper) && Ripper.respond_to?(:lex)
+      STRIPPABLE_TRAILING_TOKENS = [:on_comment, :on_sp].freeze
+
       class << self
         # `code` param must be valid string literal
         def compile(code)
           [].tap do |exps|
             tokens = Ripper.lex(code.strip)
-            tokens.pop while tokens.last && [:on_comment, :on_sp].include?(tokens.last[1])
+            tokens.pop while tokens.last && STRIPPABLE_TRAILING_TOKENS.include?(tokens.last[1])
 
             if tokens.size < 2
               raise(Haml::InternalError, "Expected token size >= 2 but got: #{tokens.size}")
