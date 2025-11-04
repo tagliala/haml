@@ -9,10 +9,12 @@ end
 gemspec
 
 gem 'benchmark-ips', '2.3.0'
+gem 'benchmark-memory'
 gem 'maxitest'
 gem 'base64'
 gem 'bigdecimal'
 gem 'mutex_m'
+gem 'haml_main', path: '~/dev/haml-copy'
 
 if /java/.match?(RUBY_PLATFORM) # JRuby
   gem 'pandoc-ruby'
